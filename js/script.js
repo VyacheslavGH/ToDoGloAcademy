@@ -6,6 +6,7 @@ const todoList = document.querySelector(".todo-list");
 const todoCompleted = document.querySelector(".todo-completed");
 const removeBtn = document.querySelectorAll(".todo-remove");
 const completeBtn = document.querySelectorAll(".todo-complete");
+const resetBtn = document.querySelector(".reset-btn");
 
 // Тут будет массив с объектами
 // В каждом объекте будет храниться название задачи и его булевое значение выполнено или нет
@@ -32,17 +33,32 @@ const render = function () {
             todoList.append(li);
         }
 
+        console.log(toDoData);
+
         li.querySelector(".todo-complete").addEventListener("click", function () {
             item.completed = !item.completed;
             render();
         });
 
         li.querySelector(".todo-remove").addEventListener("click", function () {
-            li.remove();
-            toDoData.splice(item, 1);
+            const indexEl = toDoData.indexOf(item);
+            toDoData.splice(indexEl, 1);
             render();
         });
     });
+    const stringifyArray = JSON.stringify(toDoData);
+    localStorage.setItem("taskList", stringifyArray);
+};
+
+const renderDataFromLocalStorage = function () {
+    if (localStorage.length) {
+        const dataFromLocalStorage = JSON.parse(localStorage.getItem("taskList"));
+        console.log(dataFromLocalStorage);
+        dataFromLocalStorage.forEach((el) => {
+            toDoData.push(el);
+        });
+    }
+    render();
 };
 
 // Предотвращаем стандартное поведение формы инпут при нажатии enter или кнопки "отправить"
@@ -64,9 +80,15 @@ todoControl.addEventListener("submit", function (event) {
     console.log(toDoData);
 });
 
+resetBtn.addEventListener("click", function () {
+    localStorage.clear();
+});
+
 // console.log(todoControl);
 // console.log(headerInput);
 // console.log(todoList);
 // console.log(todoCompleted);
 // console.log(removeBtn);
 // console.log(completeBtn);
+
+renderDataFromLocalStorage();

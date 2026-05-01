@@ -36,8 +36,21 @@ const render = function () {
             item.completed = !item.completed;
             render();
         });
+
+        li.querySelector(".todo-remove").addEventListener("click", function () {
+            li.remove();
+            toDoData.splice(item, 1);
+            render();
+        });
     });
 };
+
+// const removeTask = function () {
+//     removeBtn.forEach((el) => {
+//         el.closest("todo-item").innerHTML = "";
+//     });
+//     // removeBtn.closest("todo-item").innerHTML = "";
+// };
 
 // Предотвращаем стандартное поведение формы инпут при нажатии enter или кнопки "отправить"
 todoControl.addEventListener("submit", function (event) {
@@ -58,10 +71,13 @@ todoControl.addEventListener("submit", function (event) {
     console.log(toDoData);
 });
 
+// removeBtn.forEach((el) => {
+//     el.addEventListener("click", removeTask);
+// });
+
 // console.log(todoControl);
 // console.log(headerInput);
 // console.log(todoList);
 // console.log(todoCompleted);
 // console.log(removeBtn);
 // console.log(completeBtn);
-console.log;

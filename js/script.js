@@ -4,6 +4,8 @@ const todoControl = document.querySelector(".todo-control");
 const headerInput = document.querySelector(".header-input");
 const todoList = document.querySelector(".todo-list");
 const todoCompleted = document.querySelector(".todo-completed");
+const removeBtn = document.querySelectorAll(".todo-remove");
+const completeBtn = document.querySelectorAll(".todo-complete");
 
 // Тут будет массив с объектами
 // В каждом объекте будет храниться название задачи и его булевое значение выполнено или нет
@@ -41,6 +43,10 @@ const render = function () {
 todoControl.addEventListener("submit", function (event) {
     event.preventDefault();
 
+    if (!headerInput.value) {
+        return alert("Поле не может быть пустым");
+    }
+
     const newToDo = {
         text: headerInput.value,
         completed: false,
@@ -49,9 +55,13 @@ todoControl.addEventListener("submit", function (event) {
     toDoData.push(newToDo);
     render();
     headerInput.value = "";
+    console.log(toDoData);
 });
 
 // console.log(todoControl);
 // console.log(headerInput);
 // console.log(todoList);
 // console.log(todoCompleted);
+// console.log(removeBtn);
+// console.log(completeBtn);
+console.log;
